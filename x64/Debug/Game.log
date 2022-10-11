@@ -1,4 +1,2 @@
-﻿  Model.cpp
-D:\Visual Studio\source\repos\Game\Model.cpp(266,94): warning C4267: 'argument': conversion from 'size_t' to 'GLuint', possible loss of data
-D:\Visual Studio\source\repos\Game\Model.cpp(274,96): warning C4267: 'argument': conversion from 'size_t' to 'GLuint', possible loss of data
+﻿  Camera.cpp
   Game.vcxproj -> D:\Visual Studio\source\repos\Game\x64\Debug\Game.exe

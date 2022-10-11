@@ -41,10 +41,6 @@ int main()
 	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 	glViewport(0, 0, width, height);
 
-
-
-
-
 	// Generates Shader object using shaders default.vert and default.frag
 	Shader shaderProgram("default.vert", "default.frag");
 
@@ -65,8 +61,10 @@ int main()
 	// Enables the Depth Buffer
 	glEnable(GL_DEPTH_TEST);
 
+
+	bool mouseLock = false;
 	// Creates camera object
-	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
+	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f), mouseLock);
 
 
 	/*
@@ -84,6 +82,7 @@ int main()
 	// Original code from the tutorial
 	Model model("models/cube/scene.gltf");
 	Model model2("models/bunny/scene.gltf");
+	
 
 	// Main while loop
 	while (!glfwWindowShouldClose(window))

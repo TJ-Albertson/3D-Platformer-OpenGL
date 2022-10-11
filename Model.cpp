@@ -243,8 +243,6 @@ std::vector<Texture> Model::getTextures()
 		// uri of current texture
 		std::string texPath = JSON["images"][i]["uri"];
 
-		std::cout << texPath.find("baseColor");
-
 		// Check if the texture has already been loaded
 		bool skip = false;
 		for (unsigned int j = 0; j < loadedTexName.size(); j++)

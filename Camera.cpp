@@ -1,12 +1,11 @@
 #include"Camera.h"
 
-
-
-Camera::Camera(int width, int height, glm::vec3 position)
+Camera::Camera(int width, int height, glm::vec3 position, bool mouseLock)
 {
 	Camera::width = width;
 	Camera::height = height;
 	Position = position;
+	MouseLock = mouseLock;
 }
 
 void Camera::updateMatrix(float FOVdeg, float nearPlane, float farPlane)
@@ -68,9 +67,12 @@ void Camera::Inputs(GLFWwindow* window)
 		speed = 0.1f;
 	}
 
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+		MouseLock = true;
+	}
 
 	// Handles mouse inputs
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	if (MouseLock)
 	{
 		// Hides mouse cursor
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
@@ -108,10 +110,14 @@ void Camera::Inputs(GLFWwindow* window)
 		// Sets mouse cursor to the middle of the screen so that it doesn't end up roaming around
 		glfwSetCursorPos(window, (width / 2), (height / 2));
 	}
-	else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
+
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{
+		std::cout << "yo";
+		
 		// Unhides cursor since camera is not looking around anymore
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		MouseLock = false;
 		// Makes sure the next time the camera looks around it doesn't jump
 		firstClick = true;
 	}

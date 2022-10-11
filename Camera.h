@@ -22,6 +22,7 @@ public:
 
 	// Prevents the camera from jumping around when first clicking left click
 	bool firstClick = true;
+	bool MouseLock;
 
 	// Stores the width and height of the window
 	int width;
@@ -32,7 +33,7 @@ public:
 	float sensitivity = 100.0f;
 
 	// Camera constructor to set up initial values
-	Camera(int width, int height, glm::vec3 position);
+	Camera(int width, int height, glm::vec3 position, bool mouseLock);
 
 	// Updates the camera matrix to the Vertex Shader
 	void updateMatrix(float FOVdeg, float nearPlane, float farPlane);
