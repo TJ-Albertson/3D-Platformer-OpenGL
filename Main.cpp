@@ -6,8 +6,8 @@ namespace fs = std::filesystem;
 #include"Model.h"
 
 
-const unsigned int width = 800;
-const unsigned int height = 800;
+const unsigned int width = 1280;
+const unsigned int height = 720;
 
 
 int main()
@@ -80,11 +80,14 @@ int main()
 	//Model model((parentDir + modelPath).c_str());
 
 	// Original code from the tutorial
-	Model model("models/cube/scene.gltf");
-	Model model2("models/bunny/scene.gltf");
-	
+	Model cubeModel("models/cube/scene.gltf");
+	Model playerModel("models/player/scene.gltf");
 
 	// Main while loop
+
+	glm::vec3 playerLocation = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 cubeLocation = glm::vec3(0.0f, 0.0f, 0.0f);
+
 	while (!glfwWindowShouldClose(window))
 	{
 		// Specify the color of the background
@@ -92,14 +95,36 @@ int main()
 		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+
+
 		// Handles camera inputs
 		camera.Inputs(window);
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
 		// Draw a model
-		model.Draw(shaderProgram, camera);
-		model2.Draw(shaderProgram, camera);
+		cubeModel.Draw(shaderProgram, camera, cubeLocation);
+		playerModel.Draw(shaderProgram, camera, playerLocation);
+
+		
+		if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+		{
+			playerLocation += glm::vec3(0.1f, 0.0f, 0.0f);
+		}
+		if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
+		{
+			playerLocation += glm::vec3(0.0f, 0.0f, 0.1f);
+		}
+		if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+		{
+			playerLocation += glm::vec3(-0.1f, 0.0f, 0.0f);
+		}
+		if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+		{
+			playerLocation += glm::vec3(0.0f, 0.0f, -0.1f);
+		}
+		
 
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
