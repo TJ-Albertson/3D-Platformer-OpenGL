@@ -64,7 +64,13 @@ int main()
 
 	bool mouseLock = false;
 	// Creates camera object
+
+
+	//glm::make_vec3 cameraPointer = &cameraPosition;
+
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f), mouseLock);
+
+	
 
 
 	/*
@@ -91,11 +97,9 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		// Specify the color of the background
-		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		glClearColor(0.843757f, 0.90625f, 0.97265625f, 1.0f);
 		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
 
 
 		// Handles camera inputs
@@ -103,9 +107,14 @@ int main()
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
+			//std::cout << camera.Position.x;
+
 		// Draw a model
 		cubeModel.Draw(shaderProgram, camera, cubeLocation);
-		playerModel.Draw(shaderProgram, camera, playerLocation);
+		playerModel.Draw(shaderProgram, camera, camera.Position);
+
+
+		
 
 		
 		if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
@@ -125,6 +134,7 @@ int main()
 			playerLocation += glm::vec3(0.0f, 0.0f, -0.1f);
 		}
 		
+		//camera.Position = playerLocation + glm::vec3(0.0f, 1.0f, 0.0f);
 
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);

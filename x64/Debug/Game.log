@@ -1,2 +1,9 @@
-﻿  Main.cpp
+﻿  Camera.cpp
+  Main.cpp
+  Mesh.cpp
+D:\Visual Studio\source\repos\Game\Mesh.cpp(80,65): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+  Model.cpp
+D:\Visual Studio\source\repos\Game\Model.cpp(264,94): warning C4267: 'argument': conversion from 'size_t' to 'GLuint', possible loss of data
+D:\Visual Studio\source\repos\Game\Model.cpp(272,96): warning C4267: 'argument': conversion from 'size_t' to 'GLuint', possible loss of data
+  Generating Code...
   Game.vcxproj -> D:\Visual Studio\source\repos\Game\x64\Debug\Game.exe
