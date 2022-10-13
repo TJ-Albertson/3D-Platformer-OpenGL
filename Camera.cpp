@@ -20,7 +20,7 @@ void Camera::updateMatrix(float FOVdeg, float nearPlane, float farPlane, glm::ve
 	glm::float32 x = radius * sin(yaw);
 	glm::float32 z = radius * cos(yaw);
 
-	glm::float32 y = radius * sin(pitch);
+	glm::float32 y = 4 * sin(pitch);
 
 	// Makes camera look in the right direction from the right position
 	view = glm::lookAt(-playerLocation + glm::vec3(x, y, z), -playerLocation, Up);

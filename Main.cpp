@@ -75,7 +75,7 @@ int main()
 	Model cubeModel("models/cube/scene.gltf");
 	Model playerModel("models/player/scene.gltf");
 
-	
+
 
 	glm::vec3 playerLocation = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 cubeLocation = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -83,6 +83,7 @@ int main()
 	float yaw = 0.0f;
 	float pitch = 0.0f;
 	float radius = 4.0f;
+
 
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
@@ -102,6 +103,8 @@ int main()
 		cubeModel.Draw(shaderProgram, camera, cubeLocation);
 		playerModel.Draw(shaderProgram, camera, playerLocation);
 
+		std::cout << pitch << std::endl;
+
 
 		if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
 		{
@@ -114,13 +117,13 @@ int main()
 
 		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		{
-			pitch += 0.01f;
-			radius += 0.01f;
+			//pitch += 0.01f;
+			radius -= 0.01f;
 		}
 		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
 		{
-			pitch -= 0.01f;
-			radius -= 0.01f;
+			//pitch -= 0.01f;
+			radius += 0.01f;
 		}
 
 	
