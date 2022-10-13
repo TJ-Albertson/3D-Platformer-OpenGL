@@ -36,7 +36,7 @@ public:
 	Camera(int width, int height, glm::vec3 position, bool mouseLock);
 
 	// Updates the camera matrix to the Vertex Shader
-	void updateMatrix(float FOVdeg, float nearPlane, float farPlane);
+	void updateMatrix(float FOVdeg, float nearPlane, float farPlane,  glm::vec3 playerLocation, float yaw, float radius, float pitch);
 	// Exports the camera matrix to a shader
 	void Matrix(Shader& shader, const char* uniform);
 	// Handles camera inputs

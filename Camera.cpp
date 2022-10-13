@@ -8,16 +8,22 @@ Camera::Camera(int width, int height, glm::vec3 position, bool mouseLock)
 	MouseLock = mouseLock;
 }
 
-void Camera::updateMatrix(float FOVdeg, float nearPlane, float farPlane)
+void Camera::updateMatrix(float FOVdeg, float nearPlane, float farPlane, glm::vec3 playerLocation, float yaw, float radius, float pitch)
 {
 	// Initializes matrices since otherwise they will be the null matrix
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection = glm::mat4(1.0f);
 
+	//glm::vec3 loc = playerLocation * glm::vec3(-1.0f, 0.0f, -1.0f);
 
+
+	glm::float32 x = radius * sin(yaw);
+	glm::float32 z = radius * cos(yaw);
+
+	glm::float32 y = radius * sin(pitch);
 
 	// Makes camera look in the right direction from the right position
-	view = glm::lookAt(Position, Position + Orientation, Up);
+	view = glm::lookAt(-playerLocation + glm::vec3(x, y, z), -playerLocation, Up);
 	// Adds perspective to the scene
 	projection = glm::perspective(glm::radians(FOVdeg), (float)width / height, nearPlane, farPlane);
 
@@ -70,7 +76,7 @@ void Camera::Inputs(GLFWwindow* window)
 	}
 
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-		MouseLock = true;
+		//MouseLock = true;
 	}
 
 	// Handles mouse inputs

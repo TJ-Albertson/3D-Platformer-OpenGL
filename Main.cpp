@@ -68,32 +68,23 @@ int main()
 
 	//glm::make_vec3 cameraPointer = &cameraPosition;
 
-	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f), mouseLock);
+	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 5.0f), mouseLock);
 
-	
-
-
-	/*
-	* I'm doing this relative path thing in order to centralize all the resources into one folder and not
-	* duplicate them between tutorial folders. You can just copy paste the resources from the 'Resources'
-	* folder and then give a relative path from this folder to whatever resource you want to get to.
-	* Also note that this requires C++17, so go to Project Properties, C/C++, Language, and select C++17
-	*/
-	//std::string parentDir = (fs::current_path().fs::path::parent_path()).string();
-	//std::string modelPath = "/Resources/models/bunny/scene.gltf";
-
-	// Load in a model
-	//Model model((parentDir + modelPath).c_str());
 
 	// Original code from the tutorial
 	Model cubeModel("models/cube/scene.gltf");
 	Model playerModel("models/player/scene.gltf");
 
-	// Main while loop
+	
 
 	glm::vec3 playerLocation = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 cubeLocation = glm::vec3(0.0f, 0.0f, 0.0f);
 
+	float yaw = 0.0f;
+	float pitch = 0.0f;
+	float radius = 4.0f;
+
+	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
 		// Specify the color of the background
@@ -105,34 +96,53 @@ int main()
 		// Handles camera inputs
 		camera.Inputs(window);
 		// Updates and exports the camera matrix to the Vertex Shader
-		camera.updateMatrix(45.0f, 0.1f, 100.0f);
-
-			//std::cout << camera.Position.x;
+		camera.updateMatrix(45.0f, 0.1f, 100.0f, cubeLocation, yaw, radius, pitch);
 
 		// Draw a model
 		cubeModel.Draw(shaderProgram, camera, cubeLocation);
-		playerModel.Draw(shaderProgram, camera, camera.Position);
+		playerModel.Draw(shaderProgram, camera, playerLocation);
 
 
+		if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		{
+			yaw+=0.01f;
+		}
+		if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		{
+			yaw-=0.01f;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		{
+			pitch += 0.01f;
+			radius += 0.01f;
+		}
+		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		{
+			pitch -= 0.01f;
+			radius -= 0.01f;
+		}
+
+	
 		
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		{
+			cubeLocation += glm::vec3(0.1f, 0.0f, 0.0f);
+		}
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		{
+			cubeLocation += glm::vec3(0.0f, 0.0f, 0.1f);
+		}
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		{
+			cubeLocation += glm::vec3(-0.1f, 0.0f, 0.0f);
+		}
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		{
+			cubeLocation += glm::vec3(0.0f, 0.0f, -0.1f);
+		}
 
-		
-		if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
-		{
-			playerLocation += glm::vec3(0.1f, 0.0f, 0.0f);
-		}
-		if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
-		{
-			playerLocation += glm::vec3(0.0f, 0.0f, 0.1f);
-		}
-		if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-		{
-			playerLocation += glm::vec3(-0.1f, 0.0f, 0.0f);
-		}
-		if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
-		{
-			playerLocation += glm::vec3(0.0f, 0.0f, -0.1f);
-		}
+
 		
 		//camera.Position = playerLocation + glm::vec3(0.0f, 1.0f, 0.0f);
 
