@@ -16,7 +16,7 @@ Model::Model(const char* file)
 	traverseNode(0);
 }
 
-void Model::Draw(Shader& shader, Camera& camera, glm::vec3& translation)
+void Model::Draw(Shader& shader, Camera& camera, glm::vec3& translation, glm::quat rotation)
 {
 	// Go over all meshes and draw each one
 	for (unsigned int i = 0; i < meshes.size(); i++)

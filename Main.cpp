@@ -79,11 +79,13 @@ int main()
 
 	glm::vec3 playerLocation = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 cubeLocation = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::quat rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+	glm::quat playerRotation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f);
+
 
 	float yaw = 0.0f;
 	float pitch = 0.0f;
-	float radius = 4.0f;
-
+	float radius = 6.0f;
 
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
@@ -100,8 +102,8 @@ int main()
 		camera.updateMatrix(45.0f, 0.1f, 100.0f, cubeLocation, yaw, radius, pitch);
 
 		// Draw a model
-		cubeModel.Draw(shaderProgram, camera, cubeLocation);
-		playerModel.Draw(shaderProgram, camera, playerLocation);
+		cubeModel.Draw(shaderProgram, camera, cubeLocation, rotation);
+		playerModel.Draw(shaderProgram, camera, playerLocation, playerRotation);
 
 		std::cout << pitch << std::endl;
 
@@ -117,17 +119,19 @@ int main()
 
 		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		{
-			//pitch += 0.01f;
-			radius -= 0.01f;
+			if (pitch < 1) {
+				pitch += 0.01f;
+				radius -= 0.01f;
+			}
 		}
 		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
 		{
-			//pitch -= 0.01f;
-			radius += 0.01f;
+			if (pitch > -0.33) {
+				pitch -= 0.01f;
+				radius += 0.01f;
+			}			
 		}
 
-	
-		
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		{
 			cubeLocation += glm::vec3(0.1f, 0.0f, 0.0f);
