@@ -2,9 +2,20 @@
 #include<filesystem>
 namespace fs = std::filesystem;
 //------------------------------
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
-#include"Model.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
+
+#include "Camera.h"
+//#include"Model.h"
+//#include "load_model_meshes.h"
+#include"Learn_Model.h"
+
+#include <iostream>
 
 const unsigned int width = 1280;
 const unsigned int height = 720;
@@ -56,9 +67,10 @@ int main()
 
 
 
+	//Model ourModel("models/backpack/backpack.obj");
+	Model ourModel("models/cube/scene.gltf");
 
-
-	// Enables the Depth Buffer
+	// Enables the Depth Buffers
 	glEnable(GL_DEPTH_TEST);
 
 
@@ -71,9 +83,21 @@ int main()
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 5.0f), mouseLock);
 
 
+
+
 	// Original code from the tutorial
-	Model cubeModel("models/cube/scene.gltf");
-	Model playerModel("models/player/scene.gltf");
+	/*
+	Model cubeModel("models/player/scene.gltf");
+
+	Model cubeModel2("models/cube/scene.gltf");
+
+
+	Model cubeModelX("models/cube/scene.gltf");
+	glm::vec3 cubeLocationX = glm::vec3(2.0f, 0.0f, 0.0f);
+
+	Model cubeModelZ("models/cube/scene.gltf");
+	glm::vec3 cubeLocationZ = glm::vec3(0.0f, 0.0f, 2.0f);
+		*/
 
 
 
@@ -101,11 +125,20 @@ int main()
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f, cubeLocation, yaw, radius, pitch);
 
-		// Draw a model
-		cubeModel.Draw(shaderProgram, camera, cubeLocation, rotation);
-		playerModel.Draw(shaderProgram, camera, playerLocation, playerRotation);
 
-		std::cout << pitch << std::endl;
+		ourModel.Draw(shaderProgram);
+		// Draw a model
+		/*
+		cubeModel.Draw(shaderProgram, camera, cubeLocation, playerRotation);
+		cubeModel2.Draw(shaderProgram, camera, playerLocation, rotation);
+
+		cubeModelX.Draw(shaderProgram, camera, cubeLocationX, rotation);
+		cubeModelZ.Draw(shaderProgram, camera, cubeLocationZ, rotation);
+		*/
+
+
+
+		std::cout << camera.Position.x << "  " << camera.Position.z << std::endl;
 
 
 		if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
@@ -134,7 +167,8 @@ int main()
 
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		{
-			cubeLocation += glm::vec3(0.1f, 0.0f, 0.0f);
+			cubeLocation.x += 0.01 * pow(camera.Position.x, 0); 
+			cubeLocation.z += 0.01 * pow(camera.Position.z, 0);
 		}
 		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		{

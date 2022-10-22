@@ -22,8 +22,12 @@ void Camera::updateMatrix(float FOVdeg, float nearPlane, float farPlane, glm::ve
 
 	glm::float32 y = radius * sin(pitch);
 
+	Orientation = -playerLocation;
+
+	Position = -playerLocation + glm::vec3(x, y, z);
+
 	// Makes camera look in the right direction from the right position
-	view = glm::lookAt(-playerLocation + glm::vec3(x, y, z), -playerLocation, Up);
+	view = glm::lookAt(Position, Orientation, Up);
 	// Adds perspective to the scene
 	projection = glm::perspective(glm::radians(FOVdeg), (float)width / height, nearPlane, farPlane);
 
