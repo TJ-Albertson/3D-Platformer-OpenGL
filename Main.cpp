@@ -89,6 +89,8 @@ int main()
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+    glm::float32_t playerRotation = camera.Yaw + 89.5f;
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -130,10 +132,40 @@ int main()
 
         model = glm::translate(model, camera.GetPlayerPosition());
         model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	
-
+        
+        
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-            model = glm::rotate(model, camera.Yaw + 89.5f, glm::vec3(0.0f, 1.0f, 0.0f));
+            playerRotation = camera.Yaw + 89.5f;
         }
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+            playerRotation = camera.Yaw + 78.55f;
+        }
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+            playerRotation = camera.Yaw + 80.1f;
+        }
+
+        // 81.69f
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS  && playerRotation != camera.Yaw + 91.69f  ) {
+            playerRotation += ((camera.Yaw + 91.69f) - playerRotation) * 0.01;
+
+            //playerRotation = camera.Yaw;
+        }
+
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+            playerRotation = camera.Yaw + 82.5f;
+        }
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+            playerRotation = camera.Yaw + 77.8f;
+        }
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+            playerRotation = camera.Yaw + 80.8f;
+        }
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+            playerRotation = camera.Yaw + 79.55f;
+        }
+
+        model = glm::rotate(model, playerRotation, glm::vec3(0.0f, 1.0f, 0.0f));
+
         ourShader.setMat4("model", model);
         playerModel.Draw(ourShader);
 
