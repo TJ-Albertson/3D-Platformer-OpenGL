@@ -38,6 +38,7 @@ public:
     glm::vec3 Right;
     glm::vec3 WorldUp;
     glm::vec3 PlayerPosition;
+    glm::vec3 CameraPosition;
     // euler Angles
     float Yaw;
     float Pitch;
@@ -51,16 +52,6 @@ public:
     {
         Position = position;
         WorldUp = up;
-        Yaw = yaw;
-        Pitch = pitch;
-        updateCameraVectors();
-    }
-    // constructor with scalar values
-    Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
-    {
-        Position = glm::vec3(posX, posY, posZ);
-        WorldUp = glm::vec3(upX, upY, upZ);
-        PlayerPosition = glm::vec3(0.0f, 0.0f, 0.0f);
         Yaw = yaw;
         Pitch = pitch;
         updateCameraVectors();
@@ -82,7 +73,8 @@ public:
     {
         float velocity = MovementSpeed * deltaTime;
         if (direction == FORWARD)
-            PlayerPosition += glm::vec3(0.1f, 0.0f, 0.0f);
+            PlayerPosition.x -= CameraPosition.x * 0.01;
+            PlayerPosition.z -= CameraPosition.z * 0.01;
         if (direction == BACKWARD)
             PlayerPosition += glm::vec3(-0.1f, 0.0f, 0.0f);
         if (direction == LEFT)
@@ -128,16 +120,23 @@ private:
     // calculates the front vector from the Camera's (updated) Euler Angles
     void updateCameraVectors()
     {
+       
 
+        CameraPosition.x = 4 * sin(Yaw);
+        CameraPosition.y = 4 * sin(Pitch);
+        CameraPosition.z = 4 * cos(Yaw);
+
+            /*
         glm::float32 x = 4 * sin(Yaw);
         glm::float32 z = 4 * cos(Yaw);
 
         glm::float32 y = 4 * sin(Pitch);
+        */
         
         //std::cout << "X: " << x << std::endl;
         //std::cout << "Z: " << z << std::endl;
 
-        Position = PlayerPosition + glm::vec3(x, y, z);
+        Position = PlayerPosition + CameraPosition;
     }
 };
 #endif

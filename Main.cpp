@@ -103,7 +103,8 @@ int main()
         // -----
         processInput(window);
 
-        std::cout << "Pitch: " << camera.Pitch << " Yaw: " << camera.Yaw << std::endl;
+        //std::cout << "Pitch: " << camera.Pitch << " Yaw: " << camera.Yaw << std::endl;
+        std::cout << "Camera X: " << camera.Position.x << " Camera Z: " << camera.Position.y << std::endl;
 
         // render
         // ------
@@ -121,14 +122,14 @@ int main()
 
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, camera.GetPlayerPosition()); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
+        model = glm::translate(model, camera.GetPlayerPosition());
+        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	
         ourShader.setMat4("model", model);
         playerModel.Draw(ourShader);
 
         glm::mat4 cubeModel = glm::mat4(1.0f);
-        cubeModel = glm::translate(cubeModel, glm::vec3(1.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-        cubeModel = glm::scale(cubeModel, glm::vec3(0.5f, 0.5f, 0.5f));	// it's a bit too big for our scene, so scale it down
+        cubeModel = glm::translate(cubeModel, glm::vec3(1.0f, 0.0f, 0.0f)); 
+        cubeModel = glm::scale(cubeModel, glm::vec3(0.5f, 0.5f, 0.5f));	
         ourShader.setMat4("model", cubeModel);
         cube.Draw(ourShader);
 
