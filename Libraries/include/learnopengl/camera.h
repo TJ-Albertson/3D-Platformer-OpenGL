@@ -22,7 +22,7 @@ enum Camera_Movement {
 // Default camera values
 const float YAW         = -90.0f;
 const float PITCH       =  0.0f;
-const float SPEED       =  2.5f;
+const float SPEED       =  0.5f;
 const float SENSITIVITY =  0.01f;
 const float ZOOM        =  45.0f;
 
@@ -73,8 +73,8 @@ public:
     {
         float velocity = MovementSpeed * deltaTime;
         if (direction == FORWARD)
-            PlayerPosition.x -= CameraPosition.x * 0.01;
-            PlayerPosition.z -= CameraPosition.z * 0.01;
+            PlayerPosition.x -= CameraPosition.x * velocity;
+            PlayerPosition.z -= CameraPosition.z * velocity;
         if (direction == BACKWARD)
             PlayerPosition += glm::vec3(-0.1f, 0.0f, 0.0f);
         if (direction == LEFT)

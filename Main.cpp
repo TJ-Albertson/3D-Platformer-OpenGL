@@ -103,8 +103,8 @@ int main()
         // -----
         processInput(window);
 
-        //std::cout << "Pitch: " << camera.Pitch << " Yaw: " << camera.Yaw << std::endl;
-        std::cout << "Camera X: " << camera.Position.x << " Camera Z: " << camera.Position.y << std::endl;
+        std::cout << "Pitch: " << camera.Pitch << " Yaw: " << camera.Yaw << std::endl;
+        //std::cout << "Camera X: " << camera.Position.x << " Camera Z: " << camera.Position.y << std::endl;
 
         // render
         // ------
@@ -120,12 +120,25 @@ int main()
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
 
+        
+
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
+
+        
+            
+
         model = glm::translate(model, camera.GetPlayerPosition());
         model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	
+
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+            model = glm::rotate(model, camera.Yaw + 89.5f, glm::vec3(0.0f, 1.0f, 0.0f));
+        }
         ourShader.setMat4("model", model);
         playerModel.Draw(ourShader);
+
+        
+
 
         glm::mat4 cubeModel = glm::mat4(1.0f);
         cubeModel = glm::translate(cubeModel, glm::vec3(1.0f, 0.0f, 0.0f)); 

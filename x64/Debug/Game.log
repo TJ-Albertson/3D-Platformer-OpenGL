@@ -1,12 +1,2 @@
 ﻿  Main.cpp
-D:\Visual Studio\source\repos\Game\Libraries\include\learnopengl\camera.h(76,50): warning C4244: '-=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Visual Studio\source\repos\Game\Libraries\include\learnopengl\camera.h(77,50): warning C4244: '-=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
   Game.vcxproj -> D:\Visual Studio\source\repos\Game\x64\Debug\Game.exe
