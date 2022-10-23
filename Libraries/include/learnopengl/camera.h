@@ -72,15 +72,28 @@ public:
     void ProcessKeyboard(Camera_Movement direction, float deltaTime)
     {
         float velocity = MovementSpeed * deltaTime;
-        if (direction == FORWARD)
+        if (direction == FORWARD) {
             PlayerPosition.x -= CameraPosition.x * velocity;
             PlayerPosition.z -= CameraPosition.z * velocity;
-        if (direction == BACKWARD)
-            PlayerPosition += glm::vec3(-0.1f, 0.0f, 0.0f);
-        if (direction == LEFT)
-            PlayerPosition += glm::vec3(0.0f, 0.0f, -0.1f);
-        if (direction == RIGHT)
-            PlayerPosition += glm::vec3(0.0f, 0.0f, 0.1f);
+        }
+            
+        if (direction == BACKWARD) {
+            PlayerPosition.z += CameraPosition.z * velocity;
+            PlayerPosition.x += CameraPosition.x * velocity;
+        }
+            
+        if (direction == LEFT) {
+           
+
+            PlayerPosition.x -= CameraPosition.z * velocity;
+            PlayerPosition.z += CameraPosition.x * velocity;
+            
+        }
+        if (direction == RIGHT) {
+            
+            PlayerPosition.x += CameraPosition.z * velocity;
+            PlayerPosition.z -= CameraPosition.x * velocity;
+        }
 
         updateCameraVectors();
     }
